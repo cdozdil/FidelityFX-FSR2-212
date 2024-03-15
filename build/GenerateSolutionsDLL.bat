@@ -49,10 +49,12 @@ if "%VULKAN_SDK%"=="" (
 :: Call CMake
 mkdir DX12
 cd DX12
-cmake -A x64 ..\.. -DGFX_API=DX12 -DFSR2_BUILD_AS_DLL=1
+:: -DFSR2_BUILD_AS_DLL=1
+cmake -A x64 ..\.. -DGFX_API=DX12
 cd ..
 
 mkdir VK
 cd VK
-cmake -A x64 ..\.. -DGFX_API=VK -DFSR2_BUILD_AS_DLL=1
+:: -DFSR2_BUILD_AS_DLL=1
+cmake -A x64 ..\.. -DGFX_API=VK
 cd ..

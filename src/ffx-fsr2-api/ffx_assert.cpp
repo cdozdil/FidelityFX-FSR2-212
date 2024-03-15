@@ -30,52 +30,59 @@
 #include <stdio.h>    // required for sprintf_s
 #endif                // #ifndef _WIN32
 
-static FfxAssertCallback s_assertCallback;
-
-// set the printing callback function
-void ffxAssertSetPrintingCallback(FfxAssertCallback callback)
+namespace Fsr212
 {
-    s_assertCallback = callback;
-    return;
-}
 
-// implementation of assert reporting
-bool ffxAssertReport(const char* file, int32_t line, const char* condition, const char* message)
-{
-    if (!file) {
 
-        return true;
+    static FfxAssertCallback s_assertCallback;
+
+    // set the printing callback function
+    void ffxAssertSetPrintingCallback212(FfxAssertCallback callback)
+    {
+        s_assertCallback = callback;
+        return;
     }
+
+    // implementation of assert reporting
+    bool ffxAssertReport212(const char* file, int32_t line, const char* condition, const char* message)
+    {
+        if (!file) {
+
+            return true;
+        }
 
 #ifdef _WIN32
-    // form the final assertion string and output to the TTY.
-    const size_t bufferSize = static_cast<size_t>(snprintf(nullptr, 0, "%s(%d): ASSERTION FAILED. %s\n", file, line, message ? message : condition)) + 1;
-    char*        tempBuf    = static_cast<char*>(malloc(bufferSize));
-    if (!tempBuf) {
+        // form the final assertion string and output to the TTY.
+        const size_t bufferSize = static_cast<size_t>(snprintf(nullptr, 0, "%s(%d): ASSERTION FAILED. %s\n", file, line, message ? message : condition)) + 1;
+        char* tempBuf = static_cast<char*>(malloc(bufferSize));
+        if (!tempBuf) {
+
+            return true;
+        }
+
+        if (!message) {
+            sprintf_s(tempBuf, bufferSize, "%s(%d): ASSERTION FAILED. %s\n", file, line, condition);
+        }
+        else {
+            sprintf_s(tempBuf, bufferSize, "%s(%d): ASSERTION FAILED. %s\n", file, line, message);
+        }
+
+        if (!s_assertCallback) {
+            OutputDebugStringA(tempBuf);
+        }
+        else {
+            s_assertCallback(tempBuf);
+        }
+
+        // free the buffer.
+        free(tempBuf);
+
+#else
+        FFX_UNUSED(line);
+        FFX_UNUSED(condition);
+        FFX_UNUSED(message);
+#endif
 
         return true;
     }
-
-    if (!message) {
-        sprintf_s(tempBuf, bufferSize, "%s(%d): ASSERTION FAILED. %s\n", file, line, condition);
-    } else {
-        sprintf_s(tempBuf, bufferSize, "%s(%d): ASSERTION FAILED. %s\n", file, line, message);
-    }
-
-    if (!s_assertCallback) {
-        OutputDebugStringA(tempBuf);
-    } else {
-        s_assertCallback(tempBuf);
-    }
-
-    // free the buffer.
-    free(tempBuf);
-
-#else
-    FFX_UNUSED(line);
-    FFX_UNUSED(condition);
-    FFX_UNUSED(message);
-#endif
-
-    return true;
 }

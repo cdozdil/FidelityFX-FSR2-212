@@ -23,13 +23,16 @@
 
 #include "ffx_types.h"
 
-/// The value of Pi.
-const float FFX_PI = 3.141592653589793f;
+namespace Fsr212
+{
 
-/// An epsilon value for floating point numbers.
-const float FFX_EPSILON = 1e-06f;
+	/// The value of Pi.
+	const float FFX_PI = 3.141592653589793f;
 
-/// Helper macro to create the version number.
+	/// An epsilon value for floating point numbers.
+	const float FFX_EPSILON = 1e-06f;
+
+	/// Helper macro to create the version number.
 #define FFX_MAKE_VERSION(major, minor, patch) ((major << 22) | (minor << 12) | patch)
 
 ///< Use this to specify no version.
@@ -76,3 +79,5 @@ const float FFX_EPSILON = 1e-06f;
 
 /// Helper macro to check if the specified key is set in a bitfield.
 #define FFX_CONTAINS_FLAG(options, key) ((options & key) == key)
+
+}

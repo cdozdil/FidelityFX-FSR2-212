@@ -21,63 +21,68 @@
 
 #pragma once
 
-// Constants for FSR2 DX12 dispatches. Must be kept in sync with cbFSR2 in ffx_fsr2_callbacks_hlsl.h
-typedef struct Fsr2Constants {
+namespace Fsr212
+{
 
-    int32_t                     renderSize[2];
-    int32_t                     displaySize[2];
-    uint32_t                    lumaMipDimensions[2];
-    uint32_t                    lumaMipLevelToUse;
-    uint32_t                    frameIndex;
-    float                       displaySizeRcp[2];
-    float                       jitterOffset[2];
-    float                       deviceToViewDepth[4];
-    float                       depthClipUVScale[2];
-    float                       postLockStatusUVScale[2];
-    float                       reactiveMaskDimRcp[2];
-    float                       motionVectorScale[2];
-    float                       downscaleFactor[2];
-    float                       preExposure;
-    float                       tanHalfFOV;
-    float                       motionVectorJitterCancellation[2];
-    float                       jitterPhaseCount;
-    float                       lockInitialLifetime;
-    float                       lockTickDelta;
-    float                       deltaTime;
-    float                       dynamicResChangeFactor;
-    float                       lumaMipRcp;
-} Fsr2Constants;
+    // Constants for FSR2 DX12 dispatches. Must be kept in sync with cbFSR2 in ffx_fsr2_callbacks_hlsl.h
+    typedef struct Fsr2Constants {
 
-struct FfxFsr2ContextDescription;
-struct FfxDeviceCapabilities;
-struct FfxPipelineState;
-struct FfxResource;
+        int32_t                     renderSize[2];
+        int32_t                     displaySize[2];
+        uint32_t                    lumaMipDimensions[2];
+        uint32_t                    lumaMipLevelToUse;
+        uint32_t                    frameIndex;
+        float                       displaySizeRcp[2];
+        float                       jitterOffset[2];
+        float                       deviceToViewDepth[4];
+        float                       depthClipUVScale[2];
+        float                       postLockStatusUVScale[2];
+        float                       reactiveMaskDimRcp[2];
+        float                       motionVectorScale[2];
+        float                       downscaleFactor[2];
+        float                       preExposure;
+        float                       tanHalfFOV;
+        float                       motionVectorJitterCancellation[2];
+        float                       jitterPhaseCount;
+        float                       lockInitialLifetime;
+        float                       lockTickDelta;
+        float                       deltaTime;
+        float                       dynamicResChangeFactor;
+        float                       lumaMipRcp;
+    } Fsr2Constants;
 
-// FfxFsr2Context_Private
-// The private implementation of the FSR2 context.
-typedef struct FfxFsr2Context_Private {
+    struct FfxFsr2ContextDescription;
+    struct FfxDeviceCapabilities;
+    struct FfxPipelineState;
+    struct FfxResource;
 
-    FfxFsr2ContextDescription   contextDescription;
-    Fsr2Constants               constants;
-    FfxDevice                   device;
-    FfxDeviceCapabilities       deviceCapabilities;
-    FfxPipelineState            pipelinePrepareInputColor;
-    FfxPipelineState            pipelineDepthClip;
-    FfxPipelineState            pipelineReconstructPreviousDepth;
-    FfxPipelineState            pipelineLock;
-    FfxPipelineState            pipelineAccumulate;
-    FfxPipelineState            pipelineAccumulateSharpen;
-    FfxPipelineState            pipelineRCAS;
-    FfxPipelineState            pipelineComputeLuminancePyramid;
-    FfxPipelineState            pipelineGenerateReactive;
+    // FfxFsr2Context_Private
+    // The private implementation of the FSR2 context.
+    typedef struct FfxFsr2Context_Private {
 
-    // 2 arrays of resources, as e.g. FFX_FSR2_RESOURCE_IDENTIFIER_LOCK_STATUS will use different resources when bound as SRV vs when bound as UAV
-    FfxResourceInternal         srvResources[FFX_FSR2_RESOURCE_IDENTIFIER_COUNT];
-    FfxResourceInternal         uavResources[FFX_FSR2_RESOURCE_IDENTIFIER_COUNT];
+        FfxFsr2ContextDescription   contextDescription;
+        Fsr2Constants               constants;
+        FfxDevice                   device;
+        FfxDeviceCapabilities       deviceCapabilities;
+        FfxPipelineState            pipelinePrepareInputColor;
+        FfxPipelineState            pipelineDepthClip;
+        FfxPipelineState            pipelineReconstructPreviousDepth;
+        FfxPipelineState            pipelineLock;
+        FfxPipelineState            pipelineAccumulate;
+        FfxPipelineState            pipelineAccumulateSharpen;
+        FfxPipelineState            pipelineRCAS;
+        FfxPipelineState            pipelineComputeLuminancePyramid;
+        FfxPipelineState            pipelineGenerateReactive;
 
-    bool                        firstExecution;
-    bool                        refreshPipelineStates;
-    uint32_t                    resourceFrameIndex;
-    float                       previousJitterOffset[2];
-    int32_t                     jitterPhaseCountRemaining;
-} FfxFsr2Context_Private;
+        // 2 arrays of resources, as e.g. FFX_FSR2_RESOURCE_IDENTIFIER_LOCK_STATUS will use different resources when bound as SRV vs when bound as UAV
+        FfxResourceInternal         srvResources[FFX_FSR2_RESOURCE_IDENTIFIER_COUNT];
+        FfxResourceInternal         uavResources[FFX_FSR2_RESOURCE_IDENTIFIER_COUNT];
+
+        bool                        firstExecution;
+        bool                        refreshPipelineStates;
+        uint32_t                    resourceFrameIndex;
+        float                       previousJitterOffset[2];
+        int32_t                     jitterPhaseCountRemaining;
+    } FfxFsr2Context_Private;
+
+}

@@ -56,6 +56,10 @@
 #include "ffx_fsr2_reconstruct_previous_depth_pass_wave64_16bit_permutations.h"
 #include "ffx_fsr2_rcas_pass_wave64_16bit_permutations.h"
 
+namespace Fsr212
+{
+
+
 #if defined(POPULATE_PERMUTATION_KEY)
 #undef POPULATE_PERMUTATION_KEY
 #endif // #if defined(POPULATE_PERMUTATION_KEY)
@@ -73,273 +77,294 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 #endif // #if defined(POPULATE_SHADER_BLOB)
 #define POPULATE_SHADER_BLOB(info, index)  { info[index].blobData, info[index].blobSize, info[index].numUAVResources, info[index].numSRVResources, info[index].numCBVResources, info[index].uavResourceNames, info[index].uavResourceBindings, info[index].srvResourceNames, info[index].srvResourceBindings, info[index].cbvResourceNames, info[index].cbvResourceBindings }
 
-static Fsr2ShaderBlobDX12 fsr2GetPrepareInputColorPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
-    
-    ffx_fsr2_prepare_input_color_pass_PermutationKey key;
+	static Fsr2ShaderBlobDX12 fsr2GetPrepareInputColorPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
+		ffx_fsr2_prepare_input_color_pass_PermutationKey key;
 
-    if (isWave64) {
+		POPULATE_PERMUTATION_KEY(permutationOptions, key);
 
-        if (is16bit) {
+		if (isWave64) {
 
-            const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_wave64_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_wave64_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_wave64_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_wave64_PermutationInfo, tableIndex);
-        }
-    } else {
+				const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_wave64_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_wave64_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-        if (is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_wave64_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_wave64_PermutationInfo, tableIndex);
+			}
+		}
+		else {
 
-            const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_PermutationInfo, tableIndex);
-        }
-    }
-}
+				const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-static Fsr2ShaderBlobDX12 fsr2GetDepthClipPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_PermutationInfo, tableIndex);
+			}
+		}
+	}
 
-    ffx_fsr2_depth_clip_pass_PermutationKey key;
+	static Fsr2ShaderBlobDX12 fsr2GetDepthClipPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
+		ffx_fsr2_depth_clip_pass_PermutationKey key;
 
-    if (isWave64) {
+		POPULATE_PERMUTATION_KEY(permutationOptions, key);
 
-        if (is16bit) {
+		if (isWave64) {
 
-            const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_wave64_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_wave64_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_wave64_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_wave64_PermutationInfo, tableIndex);
-        }
-    } else {
+				const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_wave64_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_wave64_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-        if (is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_wave64_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_wave64_PermutationInfo, tableIndex);
+			}
+		}
+		else {
 
-            const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_PermutationInfo, tableIndex);
-        }
-    }
-}
+				const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-static Fsr2ShaderBlobDX12 fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_PermutationInfo, tableIndex);
+			}
+		}
+	}
 
-    ffx_fsr2_reconstruct_previous_depth_pass_PermutationKey key;
+	static Fsr2ShaderBlobDX12 fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
+		ffx_fsr2_reconstruct_previous_depth_pass_PermutationKey key;
 
-    if (isWave64) {
+		POPULATE_PERMUTATION_KEY(permutationOptions, key);
 
-        if (is16bit) {
+		if (isWave64) {
 
-            const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_wave64_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_wave64_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_wave64_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_wave64_PermutationInfo, tableIndex);
-        }
-    } else {
+				const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_wave64_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_wave64_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-        if (is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_wave64_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_wave64_PermutationInfo, tableIndex);
+			}
+		}
+		else {
 
-            const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_PermutationInfo, tableIndex);
-        }
-    }
-}
+				const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-static Fsr2ShaderBlobDX12 fsr2GetLockPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_PermutationInfo, tableIndex);
+			}
+		}
+	}
 
-    ffx_fsr2_lock_pass_PermutationKey key;
+	static Fsr2ShaderBlobDX12 fsr2GetLockPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
+		ffx_fsr2_lock_pass_PermutationKey key;
 
-    if (isWave64) {
+		POPULATE_PERMUTATION_KEY(permutationOptions, key);
 
-        if (is16bit) {
+		if (isWave64) {
 
-            const int32_t tableIndex = g_ffx_fsr2_lock_pass_wave64_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_wave64_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_lock_pass_wave64_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_wave64_PermutationInfo, tableIndex);
-        }
-    } else {
+				const int32_t tableIndex = g_ffx_fsr2_lock_pass_wave64_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_wave64_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-        if (is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_lock_pass_wave64_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_wave64_PermutationInfo, tableIndex);
+			}
+		}
+		else {
 
-            const int32_t tableIndex = g_ffx_fsr2_lock_pass_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_lock_pass_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_PermutationInfo, tableIndex);
-        }
-    }
-}
+				const int32_t tableIndex = g_ffx_fsr2_lock_pass_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-static Fsr2ShaderBlobDX12 fsr2GetAccumulatePassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_lock_pass_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_PermutationInfo, tableIndex);
+			}
+		}
+	}
 
-    ffx_fsr2_accumulate_pass_PermutationKey key;
+	static Fsr2ShaderBlobDX12 fsr2GetAccumulatePassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
+		ffx_fsr2_accumulate_pass_PermutationKey key;
 
-    if (isWave64) {
+		POPULATE_PERMUTATION_KEY(permutationOptions, key);
 
-        if (is16bit) {
+		if (isWave64) {
 
-            const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_wave64_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_wave64_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_wave64_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_wave64_PermutationInfo, tableIndex);
-        }
-    } else {
+				const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_wave64_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_wave64_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-        if (is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_wave64_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_wave64_PermutationInfo, tableIndex);
+			}
+		}
+		else {
 
-            const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_PermutationInfo, tableIndex);
-        }
-    }
-}
+				const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-static Fsr2ShaderBlobDX12 fsr2GetRCASPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_PermutationInfo, tableIndex);
+			}
+		}
+	}
 
-    ffx_fsr2_rcas_pass_PermutationKey key;
+	static Fsr2ShaderBlobDX12 fsr2GetRCASPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
+		ffx_fsr2_rcas_pass_PermutationKey key;
 
-    if (isWave64) {
+		POPULATE_PERMUTATION_KEY(permutationOptions, key);
 
-        if (is16bit) {
+		if (isWave64) {
 
-            const int32_t tableIndex = g_ffx_fsr2_rcas_pass_wave64_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_wave64_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_rcas_pass_wave64_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_wave64_PermutationInfo, tableIndex);
-        }
-    } else {
+				const int32_t tableIndex = g_ffx_fsr2_rcas_pass_wave64_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_wave64_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-        if (is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_rcas_pass_wave64_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_wave64_PermutationInfo, tableIndex);
+			}
+		}
+		else {
 
-            const int32_t tableIndex = g_ffx_fsr2_rcas_pass_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_16bit_PermutationInfo, tableIndex);
-        } else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_rcas_pass_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_PermutationInfo, tableIndex);
-        }
-    }
-}
+				const int32_t tableIndex = g_ffx_fsr2_rcas_pass_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-static Fsr2ShaderBlobDX12 fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_rcas_pass_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_PermutationInfo, tableIndex);
+			}
+		}
+	}
 
-    ffx_fsr2_compute_luminance_pyramid_pass_PermutationKey key;
+	static Fsr2ShaderBlobDX12 fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
+		ffx_fsr2_compute_luminance_pyramid_pass_PermutationKey key;
 
-    if (isWave64) {
+		POPULATE_PERMUTATION_KEY(permutationOptions, key);
 
-        const int32_t tableIndex = g_ffx_fsr2_compute_luminance_pyramid_pass_wave64_IndirectionTable[key.index];
-        return POPULATE_SHADER_BLOB(g_ffx_fsr2_compute_luminance_pyramid_pass_wave64_PermutationInfo, tableIndex);
-    } else {
+		if (isWave64) {
 
-        const int32_t tableIndex = g_ffx_fsr2_compute_luminance_pyramid_pass_IndirectionTable[key.index];
-        return POPULATE_SHADER_BLOB(g_ffx_fsr2_compute_luminance_pyramid_pass_PermutationInfo, tableIndex);
-    }
-}
+			const int32_t tableIndex = g_ffx_fsr2_compute_luminance_pyramid_pass_wave64_IndirectionTable[key.index];
+			return POPULATE_SHADER_BLOB(g_ffx_fsr2_compute_luminance_pyramid_pass_wave64_PermutationInfo, tableIndex);
+		}
+		else {
 
-static Fsr2ShaderBlobDX12 fsr2GetAutogenReactivePassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+			const int32_t tableIndex = g_ffx_fsr2_compute_luminance_pyramid_pass_IndirectionTable[key.index];
+			return POPULATE_SHADER_BLOB(g_ffx_fsr2_compute_luminance_pyramid_pass_PermutationInfo, tableIndex);
+		}
+	}
 
-    ffx_fsr2_autogen_reactive_pass_PermutationKey key;
+	static Fsr2ShaderBlobDX12 fsr2GetAutogenReactivePassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
+		ffx_fsr2_autogen_reactive_pass_PermutationKey key;
 
-    if (isWave64) {
+		POPULATE_PERMUTATION_KEY(permutationOptions, key);
 
-        if (is16bit) {
+		if (isWave64) {
 
-            const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_wave64_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_wave64_16bit_PermutationInfo, tableIndex);
-        }
-        else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_wave64_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_wave64_PermutationInfo, tableIndex);
-        }
-    }
-    else {
+				const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_wave64_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_wave64_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-        if (is16bit) {
+				const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_wave64_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_wave64_PermutationInfo, tableIndex);
+			}
+		}
+		else {
 
-            const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_16bit_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_16bit_PermutationInfo, tableIndex);
-        }
-        else {
+			if (is16bit) {
 
-            const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_IndirectionTable[key.index];
-            return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_PermutationInfo, tableIndex);
-        }
-    }
-}
+				const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_16bit_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_16bit_PermutationInfo, tableIndex);
+			}
+			else {
 
-Fsr2ShaderBlobDX12 fsr2GetPermutationBlobByIndex(FfxFsr2Pass passId, uint32_t permutationOptions) {
+				const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_IndirectionTable[key.index];
+				return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_PermutationInfo, tableIndex);
+			}
+		}
+	}
 
-    bool isWave64 = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_FORCE_WAVE64);
-    bool is16bit = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
+	Fsr2ShaderBlobDX12 fsr2GetPermutationBlobByIndex(FfxFsr2Pass passId, uint32_t permutationOptions) {
 
-    switch (passId) {
+		bool isWave64 = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_FORCE_WAVE64);
+		bool is16bit = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
 
-        case FFX_FSR2_PASS_PREPARE_INPUT_COLOR:
-            return fsr2GetPrepareInputColorPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
-        case FFX_FSR2_PASS_DEPTH_CLIP:
-            return fsr2GetDepthClipPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
-        case FFX_FSR2_PASS_RECONSTRUCT_PREVIOUS_DEPTH:
-            return fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
-        case FFX_FSR2_PASS_LOCK:
-            return fsr2GetLockPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
-        case FFX_FSR2_PASS_ACCUMULATE:
-        case FFX_FSR2_PASS_ACCUMULATE_SHARPEN:
-            return fsr2GetAccumulatePassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
-        case FFX_FSR2_PASS_RCAS:
-            return fsr2GetRCASPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
-        case FFX_FSR2_PASS_COMPUTE_LUMINANCE_PYRAMID:
-            return fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
-        case FFX_FSR2_PASS_GENERATE_REACTIVE:
-            return fsr2GetAutogenReactivePassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
-        default:
-            FFX_ASSERT_FAIL("Should never reach here.");
-            break;
-    }
+		switch (passId) {
 
-    // return an empty blob
-    Fsr2ShaderBlobDX12 emptyBlob = {};
-    return emptyBlob;
+		case FFX_FSR2_PASS_PREPARE_INPUT_COLOR:
+			return fsr2GetPrepareInputColorPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
+		case FFX_FSR2_PASS_DEPTH_CLIP:
+			return fsr2GetDepthClipPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
+		case FFX_FSR2_PASS_RECONSTRUCT_PREVIOUS_DEPTH:
+			return fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
+		case FFX_FSR2_PASS_LOCK:
+			return fsr2GetLockPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
+		case FFX_FSR2_PASS_ACCUMULATE:
+		case FFX_FSR2_PASS_ACCUMULATE_SHARPEN:
+			return fsr2GetAccumulatePassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
+		case FFX_FSR2_PASS_RCAS:
+			return fsr2GetRCASPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
+		case FFX_FSR2_PASS_COMPUTE_LUMINANCE_PYRAMID:
+			return fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
+		case FFX_FSR2_PASS_GENERATE_REACTIVE:
+			return fsr2GetAutogenReactivePassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
+		default:
+			FFX_ASSERT_FAIL("Should never reach here.");
+			break;
+		}
+
+		// return an empty blob
+		Fsr2ShaderBlobDX12 emptyBlob = {};
+		return emptyBlob;
+	}
+
 }

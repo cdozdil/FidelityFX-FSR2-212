@@ -30,6 +30,10 @@
 #include "ffx_fsr2_reconstruct_previous_depth_pass_permutations.h"
 #include "ffx_fsr2_rcas_pass_permutations.h"
 
+namespace Fsr212
+{
+
+
 #if defined(POPULATE_PERMUTATION_KEY)
 #undef POPULATE_PERMUTATION_KEY
 #endif // #if defined(POPULATE_PERMUTATION_KEY)
@@ -48,119 +52,121 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
 #endif // #if defined(POPULATE_SHADER_BLOB)
 #define POPULATE_SHADER_BLOB(info, index)  { info[index].blobData, info[index].blobSize, info[index].numStorageImageResources, info[index].numSampledImageResources, info[index].numUniformBufferResources, info[index].storageImageResourceNames, info[index].storageImageResourceBindings, info[index].sampledImageResourceNames, info[index].sampledImageResourceBindings, info[index].uniformBufferResourceNames, info[index].uniformBufferResourceBindings  }
 
-Fsr2ShaderBlobVK fsr2GetPrepareInputColorPassPermutationBlobByIndex(uint32_t permutationOptions) {
+    Fsr2ShaderBlobVK fsr2GetPrepareInputColorPassPermutationBlobByIndex(uint32_t permutationOptions) {
 
-    ffx_fsr2_prepare_input_color_pass_PermutationKey key;
+        ffx_fsr2_prepare_input_color_pass_PermutationKey key;
 
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
+        POPULATE_PERMUTATION_KEY(permutationOptions, key);
 
-    const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_IndirectionTable[key.index];
-    return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_PermutationInfo, tableIndex);
-}
-
-Fsr2ShaderBlobVK fsr2GetDepthClipPassPermutationBlobByIndex(uint32_t permutationOptions) {
-
-    ffx_fsr2_depth_clip_pass_PermutationKey key;
-
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
-
-    const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_IndirectionTable[key.index];
-    return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_PermutationInfo, tableIndex);
-}
-
-Fsr2ShaderBlobVK fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(uint32_t permutationOptions) {
-
-    ffx_fsr2_reconstruct_previous_depth_pass_PermutationKey key;
-
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
-
-    const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_IndirectionTable[key.index];
-    return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_PermutationInfo, tableIndex);
-}
-
-Fsr2ShaderBlobVK fsr2GetLockPassPermutationBlobByIndex(uint32_t permutationOptions) {
-
-    ffx_fsr2_lock_pass_PermutationKey key;
-
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
-
-    const int32_t tableIndex = g_ffx_fsr2_lock_pass_IndirectionTable[key.index];
-    return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_PermutationInfo, tableIndex);
-}
-
-Fsr2ShaderBlobVK fsr2GetAccumulatePassPermutationBlobByIndex(uint32_t permutationOptions) {
-
-    ffx_fsr2_accumulate_pass_PermutationKey key;
-
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
-
-    const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_IndirectionTable[key.index];
-    return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_PermutationInfo, tableIndex);
-}
-
-Fsr2ShaderBlobVK fsr2GetRCASPassPermutationBlobByIndex(uint32_t permutationOptions) {
-
-    ffx_fsr2_rcas_pass_PermutationKey key;
-
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
-
-    const int32_t tableIndex = g_ffx_fsr2_rcas_pass_IndirectionTable[key.index];
-    return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_PermutationInfo, tableIndex);
-}
-
-Fsr2ShaderBlobVK fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(uint32_t permutationOptions) {
-
-    ffx_fsr2_compute_luminance_pyramid_pass_PermutationKey key;
-
-    key.index = 0;                                                                                                
-    key.FFX_FSR2_OPTION_REPROJECT_USE_LANCZOS_TYPE = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_REPROJECT_USE_LANCZOS_TYPE);
-    key.FFX_FSR2_OPTION_HDR_COLOR_INPUT = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_HDR_COLOR_INPUT);
-    key.FFX_FSR2_OPTION_LOW_RESOLUTION_MOTION_VECTORS = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_LOW_RES_MOTION_VECTORS);
-    key.FFX_FSR2_OPTION_JITTERED_MOTION_VECTORS = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_JITTER_MOTION_VECTORS);
-    key.FFX_FSR2_OPTION_INVERTED_DEPTH = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_DEPTH_INVERTED);
-    key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_ENABLE_SHARPENING);
-
-    const int32_t tableIndex = g_ffx_fsr2_compute_luminance_pyramid_pass_IndirectionTable[key.index];
-    return POPULATE_SHADER_BLOB(g_ffx_fsr2_compute_luminance_pyramid_pass_PermutationInfo, tableIndex);
-}
-
-Fsr2ShaderBlobVK fsr2GetAutogenReactivePassPermutationBlobByIndex(uint32_t permutationOptions) {
-
-    ffx_fsr2_autogen_reactive_pass_PermutationKey key;
-
-    POPULATE_PERMUTATION_KEY(permutationOptions, key);
-
-    const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_IndirectionTable[key.index];
-    return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_PermutationInfo, tableIndex);
-}
-
-Fsr2ShaderBlobVK fsr2GetPermutationBlobByIndex(FfxFsr2Pass passId, uint32_t permutationOptions)
-{
-    switch (passId) {
-
-    case FFX_FSR2_PASS_PREPARE_INPUT_COLOR:
-        return fsr2GetPrepareInputColorPassPermutationBlobByIndex(permutationOptions);
-    case FFX_FSR2_PASS_DEPTH_CLIP:
-        return fsr2GetDepthClipPassPermutationBlobByIndex(permutationOptions);
-    case FFX_FSR2_PASS_RECONSTRUCT_PREVIOUS_DEPTH:
-        return fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(permutationOptions);
-    case FFX_FSR2_PASS_LOCK:
-        return fsr2GetLockPassPermutationBlobByIndex(permutationOptions);
-    case FFX_FSR2_PASS_ACCUMULATE:
-    case FFX_FSR2_PASS_ACCUMULATE_SHARPEN:
-        return fsr2GetAccumulatePassPermutationBlobByIndex(permutationOptions);
-    case FFX_FSR2_PASS_RCAS:
-        return fsr2GetRCASPassPermutationBlobByIndex(permutationOptions);
-    case FFX_FSR2_PASS_COMPUTE_LUMINANCE_PYRAMID:
-        return fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(permutationOptions);
-    case FFX_FSR2_PASS_GENERATE_REACTIVE:
-        return fsr2GetAutogenReactivePassPermutationBlobByIndex(permutationOptions);
-    default:
-        FFX_ASSERT_FAIL("Should never reach here.");
-        break;
+        const int32_t tableIndex = g_ffx_fsr2_prepare_input_color_pass_IndirectionTable[key.index];
+        return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_PermutationInfo, tableIndex);
     }
 
-    // return an empty blob
-    Fsr2ShaderBlobVK emptyBlob = {};
-    return emptyBlob;
+    Fsr2ShaderBlobVK fsr2GetDepthClipPassPermutationBlobByIndex(uint32_t permutationOptions) {
+
+        ffx_fsr2_depth_clip_pass_PermutationKey key;
+
+        POPULATE_PERMUTATION_KEY(permutationOptions, key);
+
+        const int32_t tableIndex = g_ffx_fsr2_depth_clip_pass_IndirectionTable[key.index];
+        return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_PermutationInfo, tableIndex);
+    }
+
+    Fsr2ShaderBlobVK fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(uint32_t permutationOptions) {
+
+        ffx_fsr2_reconstruct_previous_depth_pass_PermutationKey key;
+
+        POPULATE_PERMUTATION_KEY(permutationOptions, key);
+
+        const int32_t tableIndex = g_ffx_fsr2_reconstruct_previous_depth_pass_IndirectionTable[key.index];
+        return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_PermutationInfo, tableIndex);
+    }
+
+    Fsr2ShaderBlobVK fsr2GetLockPassPermutationBlobByIndex(uint32_t permutationOptions) {
+
+        ffx_fsr2_lock_pass_PermutationKey key;
+
+        POPULATE_PERMUTATION_KEY(permutationOptions, key);
+
+        const int32_t tableIndex = g_ffx_fsr2_lock_pass_IndirectionTable[key.index];
+        return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_PermutationInfo, tableIndex);
+    }
+
+    Fsr2ShaderBlobVK fsr2GetAccumulatePassPermutationBlobByIndex(uint32_t permutationOptions) {
+
+        ffx_fsr2_accumulate_pass_PermutationKey key;
+
+        POPULATE_PERMUTATION_KEY(permutationOptions, key);
+
+        const int32_t tableIndex = g_ffx_fsr2_accumulate_pass_IndirectionTable[key.index];
+        return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_PermutationInfo, tableIndex);
+    }
+
+    Fsr2ShaderBlobVK fsr2GetRCASPassPermutationBlobByIndex(uint32_t permutationOptions) {
+
+        ffx_fsr2_rcas_pass_PermutationKey key;
+
+        POPULATE_PERMUTATION_KEY(permutationOptions, key);
+
+        const int32_t tableIndex = g_ffx_fsr2_rcas_pass_IndirectionTable[key.index];
+        return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_PermutationInfo, tableIndex);
+    }
+
+    Fsr2ShaderBlobVK fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(uint32_t permutationOptions) {
+
+        ffx_fsr2_compute_luminance_pyramid_pass_PermutationKey key;
+
+        key.index = 0;
+        key.FFX_FSR2_OPTION_REPROJECT_USE_LANCZOS_TYPE = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_REPROJECT_USE_LANCZOS_TYPE);
+        key.FFX_FSR2_OPTION_HDR_COLOR_INPUT = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_HDR_COLOR_INPUT);
+        key.FFX_FSR2_OPTION_LOW_RESOLUTION_MOTION_VECTORS = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_LOW_RES_MOTION_VECTORS);
+        key.FFX_FSR2_OPTION_JITTERED_MOTION_VECTORS = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_JITTER_MOTION_VECTORS);
+        key.FFX_FSR2_OPTION_INVERTED_DEPTH = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_DEPTH_INVERTED);
+        key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_ENABLE_SHARPENING);
+
+        const int32_t tableIndex = g_ffx_fsr2_compute_luminance_pyramid_pass_IndirectionTable[key.index];
+        return POPULATE_SHADER_BLOB(g_ffx_fsr2_compute_luminance_pyramid_pass_PermutationInfo, tableIndex);
+    }
+
+    Fsr2ShaderBlobVK fsr2GetAutogenReactivePassPermutationBlobByIndex(uint32_t permutationOptions) {
+
+        ffx_fsr2_autogen_reactive_pass_PermutationKey key;
+
+        POPULATE_PERMUTATION_KEY(permutationOptions, key);
+
+        const int32_t tableIndex = g_ffx_fsr2_autogen_reactive_pass_IndirectionTable[key.index];
+        return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_PermutationInfo, tableIndex);
+    }
+
+    Fsr2ShaderBlobVK fsr2GetPermutationBlobByIndex(FfxFsr2Pass passId, uint32_t permutationOptions)
+    {
+        switch (passId) {
+
+        case FFX_FSR2_PASS_PREPARE_INPUT_COLOR:
+            return fsr2GetPrepareInputColorPassPermutationBlobByIndex(permutationOptions);
+        case FFX_FSR2_PASS_DEPTH_CLIP:
+            return fsr2GetDepthClipPassPermutationBlobByIndex(permutationOptions);
+        case FFX_FSR2_PASS_RECONSTRUCT_PREVIOUS_DEPTH:
+            return fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(permutationOptions);
+        case FFX_FSR2_PASS_LOCK:
+            return fsr2GetLockPassPermutationBlobByIndex(permutationOptions);
+        case FFX_FSR2_PASS_ACCUMULATE:
+        case FFX_FSR2_PASS_ACCUMULATE_SHARPEN:
+            return fsr2GetAccumulatePassPermutationBlobByIndex(permutationOptions);
+        case FFX_FSR2_PASS_RCAS:
+            return fsr2GetRCASPassPermutationBlobByIndex(permutationOptions);
+        case FFX_FSR2_PASS_COMPUTE_LUMINANCE_PYRAMID:
+            return fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(permutationOptions);
+        case FFX_FSR2_PASS_GENERATE_REACTIVE:
+            return fsr2GetAutogenReactivePassPermutationBlobByIndex(permutationOptions);
+        default:
+            FFX_ASSERT_FAIL("Should never reach here.");
+            break;
+        }
+
+        // return an empty blob
+        Fsr2ShaderBlobVK emptyBlob = {};
+        return emptyBlob;
+    }
+
 }
