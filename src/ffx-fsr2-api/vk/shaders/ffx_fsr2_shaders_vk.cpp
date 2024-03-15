@@ -52,7 +52,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
 #endif // #if defined(POPULATE_SHADER_BLOB)
 #define POPULATE_SHADER_BLOB(info, index)  { info[index].blobData, info[index].blobSize, info[index].numStorageImageResources, info[index].numSampledImageResources, info[index].numUniformBufferResources, info[index].storageImageResourceNames, info[index].storageImageResourceBindings, info[index].sampledImageResourceNames, info[index].sampledImageResourceBindings, info[index].uniformBufferResourceNames, info[index].uniformBufferResourceBindings  }
 
-    Fsr2ShaderBlobVK fsr2GetPrepareInputColorPassPermutationBlobByIndex(uint32_t permutationOptions) {
+    Fsr2ShaderBlobVK212 fsr2GetPrepareInputColorPassPermutationBlobByIndex(uint32_t permutationOptions) {
 
         ffx_fsr2_prepare_input_color_pass_PermutationKey key;
 
@@ -62,7 +62,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         return POPULATE_SHADER_BLOB(g_ffx_fsr2_prepare_input_color_pass_PermutationInfo, tableIndex);
     }
 
-    Fsr2ShaderBlobVK fsr2GetDepthClipPassPermutationBlobByIndex(uint32_t permutationOptions) {
+    Fsr2ShaderBlobVK212 fsr2GetDepthClipPassPermutationBlobByIndex(uint32_t permutationOptions) {
 
         ffx_fsr2_depth_clip_pass_PermutationKey key;
 
@@ -72,7 +72,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         return POPULATE_SHADER_BLOB(g_ffx_fsr2_depth_clip_pass_PermutationInfo, tableIndex);
     }
 
-    Fsr2ShaderBlobVK fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(uint32_t permutationOptions) {
+    Fsr2ShaderBlobVK212 fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(uint32_t permutationOptions) {
 
         ffx_fsr2_reconstruct_previous_depth_pass_PermutationKey key;
 
@@ -82,7 +82,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         return POPULATE_SHADER_BLOB(g_ffx_fsr2_reconstruct_previous_depth_pass_PermutationInfo, tableIndex);
     }
 
-    Fsr2ShaderBlobVK fsr2GetLockPassPermutationBlobByIndex(uint32_t permutationOptions) {
+    Fsr2ShaderBlobVK212 fsr2GetLockPassPermutationBlobByIndex(uint32_t permutationOptions) {
 
         ffx_fsr2_lock_pass_PermutationKey key;
 
@@ -92,7 +92,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         return POPULATE_SHADER_BLOB(g_ffx_fsr2_lock_pass_PermutationInfo, tableIndex);
     }
 
-    Fsr2ShaderBlobVK fsr2GetAccumulatePassPermutationBlobByIndex(uint32_t permutationOptions) {
+    Fsr2ShaderBlobVK212 fsr2GetAccumulatePassPermutationBlobByIndex(uint32_t permutationOptions) {
 
         ffx_fsr2_accumulate_pass_PermutationKey key;
 
@@ -102,7 +102,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         return POPULATE_SHADER_BLOB(g_ffx_fsr2_accumulate_pass_PermutationInfo, tableIndex);
     }
 
-    Fsr2ShaderBlobVK fsr2GetRCASPassPermutationBlobByIndex(uint32_t permutationOptions) {
+    Fsr2ShaderBlobVK212 fsr2GetRCASPassPermutationBlobByIndex(uint32_t permutationOptions) {
 
         ffx_fsr2_rcas_pass_PermutationKey key;
 
@@ -112,7 +112,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         return POPULATE_SHADER_BLOB(g_ffx_fsr2_rcas_pass_PermutationInfo, tableIndex);
     }
 
-    Fsr2ShaderBlobVK fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(uint32_t permutationOptions) {
+    Fsr2ShaderBlobVK212 fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(uint32_t permutationOptions) {
 
         ffx_fsr2_compute_luminance_pyramid_pass_PermutationKey key;
 
@@ -128,7 +128,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         return POPULATE_SHADER_BLOB(g_ffx_fsr2_compute_luminance_pyramid_pass_PermutationInfo, tableIndex);
     }
 
-    Fsr2ShaderBlobVK fsr2GetAutogenReactivePassPermutationBlobByIndex(uint32_t permutationOptions) {
+    Fsr2ShaderBlobVK212 fsr2GetAutogenReactivePassPermutationBlobByIndex(uint32_t permutationOptions) {
 
         ffx_fsr2_autogen_reactive_pass_PermutationKey key;
 
@@ -138,7 +138,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         return POPULATE_SHADER_BLOB(g_ffx_fsr2_autogen_reactive_pass_PermutationInfo, tableIndex);
     }
 
-    Fsr2ShaderBlobVK fsr2GetPermutationBlobByIndex(FfxFsr2Pass passId, uint32_t permutationOptions)
+    Fsr2ShaderBlobVK212 fsr2GetPermutationBlobByIndex212(FfxFsr2Pass passId, uint32_t permutationOptions)
     {
         switch (passId) {
 
@@ -165,7 +165,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         }
 
         // return an empty blob
-        Fsr2ShaderBlobVK emptyBlob = {};
+        Fsr2ShaderBlobVK212 emptyBlob = {};
         return emptyBlob;
     }
 

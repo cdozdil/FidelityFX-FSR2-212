@@ -77,7 +77,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 #endif // #if defined(POPULATE_SHADER_BLOB)
 #define POPULATE_SHADER_BLOB(info, index)  { info[index].blobData, info[index].blobSize, info[index].numUAVResources, info[index].numSRVResources, info[index].numCBVResources, info[index].uavResourceNames, info[index].uavResourceBindings, info[index].srvResourceNames, info[index].srvResourceBindings, info[index].cbvResourceNames, info[index].cbvResourceBindings }
 
-	static Fsr2ShaderBlobDX12 fsr2GetPrepareInputColorPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+	static Fsr2ShaderBlobDX12_212 fsr2GetPrepareInputColorPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
 		ffx_fsr2_prepare_input_color_pass_PermutationKey key;
 
@@ -111,7 +111,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		}
 	}
 
-	static Fsr2ShaderBlobDX12 fsr2GetDepthClipPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+	static Fsr2ShaderBlobDX12_212 fsr2GetDepthClipPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
 		ffx_fsr2_depth_clip_pass_PermutationKey key;
 
@@ -145,7 +145,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		}
 	}
 
-	static Fsr2ShaderBlobDX12 fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+	static Fsr2ShaderBlobDX12_212 fsr2GetReconstructPreviousDepthPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
 		ffx_fsr2_reconstruct_previous_depth_pass_PermutationKey key;
 
@@ -179,7 +179,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		}
 	}
 
-	static Fsr2ShaderBlobDX12 fsr2GetLockPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+	static Fsr2ShaderBlobDX12_212 fsr2GetLockPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
 		ffx_fsr2_lock_pass_PermutationKey key;
 
@@ -213,7 +213,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		}
 	}
 
-	static Fsr2ShaderBlobDX12 fsr2GetAccumulatePassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+	static Fsr2ShaderBlobDX12_212 fsr2GetAccumulatePassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
 		ffx_fsr2_accumulate_pass_PermutationKey key;
 
@@ -247,7 +247,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		}
 	}
 
-	static Fsr2ShaderBlobDX12 fsr2GetRCASPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+	static Fsr2ShaderBlobDX12_212 fsr2GetRCASPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
 		ffx_fsr2_rcas_pass_PermutationKey key;
 
@@ -281,7 +281,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		}
 	}
 
-	static Fsr2ShaderBlobDX12 fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+	static Fsr2ShaderBlobDX12_212 fsr2GetComputeLuminancePyramidPassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
 		ffx_fsr2_compute_luminance_pyramid_pass_PermutationKey key;
 
@@ -299,7 +299,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		}
 	}
 
-	static Fsr2ShaderBlobDX12 fsr2GetAutogenReactivePassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
+	static Fsr2ShaderBlobDX12_212 fsr2GetAutogenReactivePassPermutationBlobByIndex(uint32_t permutationOptions, bool isWave64, bool is16bit) {
 
 		ffx_fsr2_autogen_reactive_pass_PermutationKey key;
 
@@ -333,7 +333,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		}
 	}
 
-	Fsr2ShaderBlobDX12 fsr2GetPermutationBlobByIndex(FfxFsr2Pass passId, uint32_t permutationOptions) {
+	Fsr2ShaderBlobDX12_212 fsr2GetPermutationBlobByIndex_212(FfxFsr2Pass passId, uint32_t permutationOptions) {
 
 		bool isWave64 = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_FORCE_WAVE64);
 		bool is16bit = FFX_CONTAINS_FLAG(permutationOptions, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
@@ -363,7 +363,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		}
 
 		// return an empty blob
-		Fsr2ShaderBlobDX12 emptyBlob = {};
+		Fsr2ShaderBlobDX12_212 emptyBlob = {};
 		return emptyBlob;
 	}
 

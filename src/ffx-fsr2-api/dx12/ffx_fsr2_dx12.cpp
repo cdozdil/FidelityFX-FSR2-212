@@ -1002,7 +1002,7 @@ namespace Fsr212
 		flags |= (canForceWave64) ? FSR2_SHADER_PERMUTATION_FORCE_WAVE64 : 0;
 		flags |= (supportedFP16 && (pass != FFX_FSR2_PASS_RCAS)) ? FSR2_SHADER_PERMUTATION_ALLOW_FP16 : 0;
 
-		const Fsr2ShaderBlobDX12 shaderBlob = fsr2GetPermutationBlobByIndex(pass, flags);
+		const Fsr2ShaderBlobDX12_212 shaderBlob = fsr2GetPermutationBlobByIndex_212(pass, flags);
 		FFX_ASSERT(shaderBlob.data && shaderBlob.size);
 
 		// set up root signature
