@@ -96,7 +96,7 @@ void UpscaleContext_FSR2_API::OnCreateWindowSizeDependentResources(
     const size_t scratchBufferSize = ffxFsr2GetScratchMemorySizeDX12();
     void* scratchBuffer = malloc(scratchBufferSize);
     FfxErrorCode errorCode = ffxFsr2GetInterfaceDX12(&initializationParameters.callbacks, m_pDevice->GetDevice(), scratchBuffer, scratchBufferSize);
-    FFX_ASSERT(errorCode == FFX_OK);
+    FFX_ASSERT_212(errorCode == FFX_OK);
 
     // This adds a ref to the device. The reference will get freed in ffxFsr2ContextDestroy
     initializationParameters.device = ffxGetDeviceDX12(m_pDevice->GetDevice());
@@ -221,6 +221,6 @@ void UpscaleContext_FSR2_API::Draw(ID3D12GraphicsCommandList* pCommandList, cons
     pState->bReset = false;
 
     FfxErrorCode errorCode = ffxFsr2ContextDispatch(&context, &dispatchParameters);
-    FFX_ASSERT(errorCode == FFX_OK);
+    FFX_ASSERT_212(errorCode == FFX_OK);
 
 }

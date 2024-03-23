@@ -41,7 +41,7 @@ namespace Fsr212
         ///
         /// @returns
         /// The size (in bytes) of the required scratch memory buffer for the DX12 backend.
-        FFX_API size_t ffxFsr2GetScratchMemorySizeDX12_212();
+        size_t ffxFsr2GetScratchMemorySizeDX12_212();
 
         /// Populate an interface with pointers for the DX12 backend.
         ///
@@ -56,7 +56,7 @@ namespace Fsr212
         /// FFX_ERROR_CODE_INVALID_POINTER          The <c><i>interface</i></c> pointer was <c><i>NULL</i></c>.
         /// 
         /// @ingroup FSR2 DX12
-        FFX_API FfxErrorCode ffxFsr2GetInterfaceDX12_212(
+        FfxErrorCode ffxFsr2GetInterfaceDX12_212(
             FfxFsr2Interface212* fsr2Interface,
             ID3D12Device* device,
             void* scratchBuffer,
@@ -70,7 +70,7 @@ namespace Fsr212
         /// An abstract FidelityFX device.
         /// 
         /// @ingroup FSR2 DX12
-        FFX_API FfxDevice ffxGetDeviceDX12_212(ID3D12Device* device);
+        FfxDevice ffxGetDeviceDX12_212(ID3D12Device* device);
 
         /// Create a <c><i>FfxCommandList</i></c> from a <c><i>ID3D12CommandList</i></c>.
         ///
@@ -80,7 +80,7 @@ namespace Fsr212
         /// An abstract FidelityFX command list.
         /// 
         /// @ingroup FSR2 DX12
-        FFX_API FfxCommandList ffxGetCommandListDX12_212(ID3D12CommandList* cmdList);
+        FfxCommandList ffxGetCommandListDX12_212(ID3D12CommandList* cmdList);
 
         /// Create a <c><i>FfxResource</i></c> from a <c><i>ID3D12Resource</i></c>.
         ///
@@ -94,7 +94,7 @@ namespace Fsr212
         /// An abstract FidelityFX resources.
         /// 
         /// @ingroup FSR2 DX12
-        FFX_API FfxResource ffxGetResourceDX12_212(
+        FfxResource ffxGetResourceDX12_212(
             FfxFsr2Context* context,
             ID3D12Resource* resDx12,
             const wchar_t* name = nullptr,
@@ -111,7 +111,7 @@ namespace Fsr212
         /// A <c><i>ID3D12Resource</i> pointer</c>.
         /// 
         /// @ingroup FSR2 DX12
-        FFX_API ID3D12Resource* ffxGetDX12ResourcePtr_212(FfxFsr2Context* context, uint32_t resId);
+        ID3D12Resource* ffxGetDX12ResourcePtr_212(FfxFsr2Context* context, uint32_t resId);
 
 #if defined(__cplusplus)
     }

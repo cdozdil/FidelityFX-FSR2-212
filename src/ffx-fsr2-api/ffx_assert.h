@@ -74,17 +74,17 @@ namespace Fsr212
 		/// @returns
 		/// Always returns true.
 		///
-		FFX_API bool ffxAssertReport212(const char* file, int32_t line, const char* condition, const char* msg);
+		bool ffxAssertReport212(const char* file, int32_t line, const char* condition, const char* msg);
 
 		/// Provides the ability to set a callback for assert messages.
 		///
 		/// @param [in] callback                The callback function that will receive assert messages.
 		///
-		FFX_API void ffxAssertSetPrintingCallback212(FfxAssertCallback callback);
+		void ffxAssertSetPrintingCallback212(FfxAssertCallback callback);
 
 #ifdef _DEBUG
 		/// Standard assert macro.
-#define FFX_ASSERT(condition)                                                      \
+#define FFX_ASSERT_212(condition)                                                      \
     do                                                                             \
     {                                                                              \
         if (!(condition) && ffxAssertReport212(__FILE__, __LINE__, #condition, NULL)) \
@@ -92,7 +92,7 @@ namespace Fsr212
     } while (0)
 
 /// Assert macro with message.
-#define FFX_ASSERT_MESSAGE(condition, msg)                                        \
+#define FFX_ASSERT_MESSAGE_212(condition, msg)                                        \
     do                                                                            \
     {                                                                             \
         if (!(condition) && ffxAssertReport212(__FILE__, __LINE__, #condition, msg)) \
@@ -100,7 +100,7 @@ namespace Fsr212
     } while (0)
 
 /// Assert macro that always fails.
-#define FFX_ASSERT_FAIL(message)                            \
+#define FFX_ASSERT_FAIL_212(message)                            \
     do                                                      \
     {                                                       \
         ffxAssertReport212(__FILE__, __LINE__, NULL, message); \
@@ -108,20 +108,20 @@ namespace Fsr212
     } while (0)
 #else
 		// asserts disabled
-#define FFX_ASSERT(condition)  \
+#define FFX_ASSERT_212(condition)  \
     do                         \
     {                          \
         FFX_UNUSED(condition); \
     } while (0)
 
-#define FFX_ASSERT_MESSAGE(condition, message) \
+#define FFX_ASSERT_MESSAGE_212(condition, message) \
     do                                         \
     {                                          \
         FFX_UNUSED(condition);                 \
         FFX_UNUSED(message);                   \
     } while (0)
 
-#define FFX_ASSERT_FAIL(message) \
+#define FFX_ASSERT_FAIL_212(message) \
     do                           \
     {                            \
         FFX_UNUSED(message);     \

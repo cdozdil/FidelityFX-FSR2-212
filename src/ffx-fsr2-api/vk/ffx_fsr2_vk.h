@@ -37,7 +37,7 @@ namespace Fsr212
         ///
         /// @returns
         /// The size (in bytes) of the required scratch memory buffer for the VK backend.
-        FFX_API size_t ffxFsr2GetScratchMemorySizeVK212(VkPhysicalDevice physicalDevice);
+        size_t ffxFsr2GetScratchMemorySizeVK212(VkPhysicalDevice physicalDevice);
 
         /// Populate an interface with pointers for the VK backend.
         ///
@@ -54,7 +54,7 @@ namespace Fsr212
         /// FFX_ERROR_CODE_INVALID_POINTER          The <c><i>interface</i></c> pointer was <c><i>NULL</i></c>.
         /// 
         /// @ingroup FSR2 VK
-        FFX_API FfxErrorCode ffxFsr2GetInterfaceVK212(
+        FfxErrorCode ffxFsr2GetInterfaceVK212(
             FfxFsr2Interface* outInterface,
             void* scratchBuffer,
             size_t scratchBufferSize,
@@ -69,7 +69,7 @@ namespace Fsr212
         /// An abstract FidelityFX device.
         /// 
         /// @ingroup FSR2 VK
-        FFX_API FfxDevice ffxGetDeviceVK212(VkDevice device);
+        FfxDevice ffxGetDeviceVK212(VkDevice device);
 
         /// Create a <c><i>FfxCommandList</i></c> from a <c><i>VkCommandBuffer</i></c>.
         ///
@@ -79,7 +79,7 @@ namespace Fsr212
         /// An abstract FidelityFX command list.
         /// 
         /// @ingroup FSR2 VK
-        FFX_API FfxCommandList ffxGetCommandListVK212(VkCommandBuffer cmdBuf);
+        FfxCommandList ffxGetCommandListVK212(VkCommandBuffer cmdBuf);
 
         /// Create a <c><i>FfxResource</i></c> from a <c><i>VkImage</i></c>.
         ///
@@ -96,7 +96,7 @@ namespace Fsr212
         /// An abstract FidelityFX resources.
         /// 
         /// @ingroup FSR2 VK
-        FFX_API FfxResource ffxGetTextureResourceVK212(FfxFsr2Context* context,
+        FfxResource ffxGetTextureResourceVK212(FfxFsr2Context* context,
             VkImage imgVk,
             VkImageView imageView,
             uint32_t width,
@@ -117,7 +117,7 @@ namespace Fsr212
         /// An abstract FidelityFX resources.
         /// 
         /// @ingroup FSR2 VK
-        FFX_API FfxResource ffxGetBufferResourceVK212(FfxFsr2Context* context,
+        FfxResource ffxGetBufferResourceVK212(FfxFsr2Context* context,
             VkBuffer bufVk,
             uint32_t size,
             wchar_t* name = nullptr,
@@ -132,7 +132,7 @@ namespace Fsr212
         /// A <c><i>VkImage</i></c>.
         /// 
         /// @ingroup FSR2 VK
-        FFX_API VkImage ffxGetVkImage212(FfxFsr2Context* context, uint32_t resId);
+        VkImage ffxGetVkImage212(FfxFsr2Context* context, uint32_t resId);
 
         /// Convert a <c><i>FfxResource</i></c> value to a <c><i>VkImageView</i></c>.
         ///
@@ -143,7 +143,7 @@ namespace Fsr212
         /// A <c><i>VkImage</i></c>.
         /// 
         /// @ingroup FSR2 VK
-        FFX_API VkImageView ffxGetVkImageView212(FfxFsr2Context* context, uint32_t resId);
+        VkImageView ffxGetVkImageView212(FfxFsr2Context* context, uint32_t resId);
 
         /// Convert a <c><i>FfxResource</i></c> value to a <c><i>VkImageLayout</i></c>.
         ///
@@ -154,7 +154,7 @@ namespace Fsr212
         /// A <c><i>VkImage</i></c>.
         /// 
         /// @ingroup FSR2 VK
-        FFX_API VkImageLayout ffxGetVkImageLayout212(FfxFsr2Context* context, uint32_t resId);
+        VkImageLayout ffxGetVkImageLayout212(FfxFsr2Context* context, uint32_t resId);
 
 #if defined(__cplusplus)
     }

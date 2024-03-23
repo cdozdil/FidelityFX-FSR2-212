@@ -160,7 +160,7 @@ key.FFX_HALF = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PERMUTATION_ALLOW_FP16);
         case FFX_FSR2_PASS_GENERATE_REACTIVE:
             return fsr2GetAutogenReactivePassPermutationBlobByIndex(permutationOptions);
         default:
-            FFX_ASSERT_FAIL("Should never reach here.");
+            FFX_ASSERT_FAIL_212("Should never reach here.");
             break;
         }
 

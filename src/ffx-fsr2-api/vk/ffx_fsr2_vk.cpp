@@ -174,7 +174,7 @@ namespace Fsr212
 
 	} BackendContext_VK;
 
-	FFX_API size_t ffxFsr2GetScratchMemorySizeVK212(VkPhysicalDevice physicalDevice)
+	size_t ffxFsr2GetScratchMemorySizeVK212(VkPhysicalDevice physicalDevice)
 	{
 		uint32_t numExtensions = 0;
 
@@ -226,7 +226,7 @@ namespace Fsr212
 
 	void loadVKFunctions(BackendContext_VK* backendContext, PFN_vkGetDeviceProcAddr getDeviceProcAddr)
 	{
-		FFX_ASSERT(NULL != backendContext);
+		FFX_ASSERT_212(NULL != backendContext);
 
 		backendContext->vkFunctionTable.vkSetDebugUtilsObjectNameEXT = (PFN_vkSetDebugUtilsObjectNameEXT)getDeviceProcAddr(backendContext->device, "vkSetDebugUtilsObjectNameEXT");
 		backendContext->vkFunctionTable.vkFlushMappedMemoryRanges = (PFN_vkFlushMappedMemoryRanges)getDeviceProcAddr(backendContext->device, "vkFlushMappedMemoryRanges");
@@ -446,7 +446,7 @@ namespace Fsr212
 
 	uint32_t findMemoryTypeIndex(VkPhysicalDevice physicalDevice, VkMemoryRequirements memRequirements, VkMemoryPropertyFlags requestedProperties, VkMemoryPropertyFlags& outProperties)
 	{
-		FFX_ASSERT(NULL != physicalDevice);
+		FFX_ASSERT_212(NULL != physicalDevice);
 
 		VkPhysicalDeviceMemoryProperties memProperties;
 		vkGetPhysicalDeviceMemoryProperties(physicalDevice, &memProperties);
@@ -475,7 +475,7 @@ namespace Fsr212
 	VkDescriptorBufferInfo accquireDynamicUBO(BackendContext_VK* backendContext, uint32_t size, void* pData)
 	{
 		// the ubo ring buffer is pre-populated with VkBuffer objects of 256-bytes to prevent creating buffers at runtime
-		FFX_ASSERT(size <= 256);
+		FFX_ASSERT_212(size <= 256);
 
 		BackendContext_VK::UniformBuffer& ubo = backendContext->uboRingBuffer[backendContext->uboRingBufferIndex];
 
@@ -515,13 +515,13 @@ namespace Fsr212
 	// Create a FfxFsr2Device from a VkDevice
 	FfxDevice ffxGetDeviceVK212(VkDevice vkDevice)
 	{
-		FFX_ASSERT(NULL != vkDevice);
+		FFX_ASSERT_212(NULL != vkDevice);
 		return reinterpret_cast<FfxDevice>(vkDevice);
 	}
 
 	FfxCommandList ffxGetCommandListVK212(VkCommandBuffer cmdBuf)
 	{
-		FFX_ASSERT(NULL != cmdBuf);
+		FFX_ASSERT_212(NULL != cmdBuf);
 		return reinterpret_cast<FfxCommandList>(cmdBuf);
 	}
 
@@ -592,7 +592,7 @@ namespace Fsr212
 
 	VkImage ffxGetVkImage212(FfxFsr2Context* context, uint32_t resId)
 	{
-		FFX_ASSERT(NULL != context);
+		FFX_ASSERT_212(NULL != context);
 
 		FfxFsr2Context_Private* contextPrivate = (FfxFsr2Context_Private*)(context);
 		BackendContext_VK* backendContext = (BackendContext_VK*)(contextPrivate->contextDescription.callbacks.scratchBuffer);
@@ -604,7 +604,7 @@ namespace Fsr212
 
 	VkImageView ffxGetVkImageView212(FfxFsr2Context* context, uint32_t resId)
 	{
-		FFX_ASSERT(NULL != context);
+		FFX_ASSERT_212(NULL != context);
 
 		FfxFsr2Context_Private* contextPrivate = (FfxFsr2Context_Private*)(context);
 		BackendContext_VK* backendContext = (BackendContext_VK*)(contextPrivate->contextDescription.callbacks.scratchBuffer);
@@ -628,7 +628,7 @@ namespace Fsr212
 		FfxResourceInternal* outFfxResourceInternal
 	)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_VK* backendContext = (BackendContext_VK*)(backendInterface->scratchBuffer);
 
@@ -638,7 +638,7 @@ namespace Fsr212
 			return FFX_OK;
 		}
 
-		FFX_ASSERT(backendContext->nextDynamicResource > backendContext->nextStaticResource);
+		FFX_ASSERT_212(backendContext->nextDynamicResource > backendContext->nextStaticResource);
 		outFfxResourceInternal->internalIndex = backendContext->nextDynamicResource--;
 
 		BackendContext_VK::Resource* backendResource = &backendContext->resources[outFfxResourceInternal->internalIndex];
@@ -687,7 +687,7 @@ namespace Fsr212
 	// dispose dynamic resources: This should be called at the end of the frame
 	FfxErrorCode UnregisterResourcesVK(FfxFsr2Interface* backendInterface)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_VK* backendContext = (BackendContext_VK*)(backendInterface->scratchBuffer);
 
@@ -762,7 +762,7 @@ namespace Fsr212
 
 	FfxErrorCode CreateBackendContextVK(FfxFsr2Interface* backendInterface, FfxDevice device)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		VkDevice vkDevice = reinterpret_cast<VkDevice>(device);
 
@@ -771,7 +771,7 @@ namespace Fsr212
 		backendContext->extensionProperties = (VkExtensionProperties*)(backendContext + 1);
 
 		// make sure the extra parameters were already passed in
-		FFX_ASSERT(backendContext->physicalDevice != NULL);
+		FFX_ASSERT_212(backendContext->physicalDevice != NULL);
 
 		// if vkGetDeviceProcAddr is NULL, use the one from the vulkan header
 		if (backendContext->vkFunctionTable.vkGetDeviceProcAddr == NULL)
@@ -951,7 +951,7 @@ namespace Fsr212
 
 	FfxErrorCode DestroyBackendContextVK(FfxFsr2Interface* backendInterface)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_VK* backendContext = (BackendContext_VK*)backendInterface->scratchBuffer;
 
@@ -998,14 +998,14 @@ namespace Fsr212
 		const FfxCreateResourceDescription* createResourceDescription,
 		FfxResourceInternal* outResource)
 	{
-		FFX_ASSERT(NULL != backendInterface);
-		FFX_ASSERT(NULL != createResourceDescription);
-		FFX_ASSERT(NULL != outResource);
+		FFX_ASSERT_212(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != createResourceDescription);
+		FFX_ASSERT_212(NULL != outResource);
 
 		BackendContext_VK* backendContext = (BackendContext_VK*)backendInterface->scratchBuffer;
 		VkDevice vkDevice = reinterpret_cast<VkDevice>(backendContext->device);
 
-		FFX_ASSERT(backendContext->nextStaticResource + 1 < backendContext->nextDynamicResource);
+		FFX_ASSERT_212(backendContext->nextStaticResource + 1 < backendContext->nextDynamicResource);
 		outResource->internalIndex = backendContext->nextStaticResource++;
 		BackendContext_VK::Resource* res = &backendContext->resources[outResource->internalIndex];
 		res->resourceDescription = createResourceDescription->resourceDescription;
@@ -1218,7 +1218,7 @@ namespace Fsr212
 				// add to the list of staging resources to delete later 
 				uint32_t stagingResIdx = backendContext->stagingResourceCount++;
 
-				FFX_ASSERT(backendContext->stagingResourceCount < FSR2_MAX_STAGING_RESOURCE_COUNT);
+				FFX_ASSERT_212(backendContext->stagingResourceCount < FSR2_MAX_STAGING_RESOURCE_COUNT);
 
 				backendContext->stagingResources[stagingResIdx] = copySrc;
 			}
@@ -1229,7 +1229,7 @@ namespace Fsr212
 
 	FfxResourceDescription GetResourceDescriptorVK(FfxFsr2Interface* backendInterface, FfxResourceInternal resource)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_VK* backendContext = (BackendContext_VK*)backendInterface->scratchBuffer;
 
@@ -1247,8 +1247,8 @@ namespace Fsr212
 
 	FfxErrorCode CreatePipelineVK(FfxFsr2Interface* backendInterface, FfxFsr2Pass pass, const FfxPipelineDescription* pipelineDescription, FfxPipelineState* outPipeline)
 	{
-		FFX_ASSERT(NULL != backendInterface);
-		FFX_ASSERT(NULL != pipelineDescription);
+		FFX_ASSERT_212(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != pipelineDescription);
 
 		BackendContext_VK* backendContext = (BackendContext_VK*)backendInterface->scratchBuffer;
 
@@ -1292,15 +1292,15 @@ namespace Fsr212
 		flags |= (supportedFP16 && (pass != FFX_FSR2_PASS_RCAS)) ? FSR2_SHADER_PERMUTATION_ALLOW_FP16 : 0;
 
 		const Fsr2ShaderBlobVK212 shaderBlob = fsr2GetPermutationBlobByIndex212(pass, flags);
-		FFX_ASSERT(shaderBlob.data && shaderBlob.size);
+		FFX_ASSERT_212(shaderBlob.data && shaderBlob.size);
 
 		// populate the pass.
 		outPipeline->srvCount = shaderBlob.sampledImageCount;
 		outPipeline->uavCount = shaderBlob.storageImageCount;
 		outPipeline->constCount = shaderBlob.uniformBufferCount;
 
-		FFX_ASSERT(shaderBlob.storageImageCount < FFX_MAX_NUM_UAVS);
-		FFX_ASSERT(shaderBlob.sampledImageCount < FFX_MAX_NUM_SRVS);
+		FFX_ASSERT_212(shaderBlob.storageImageCount < FFX_MAX_NUM_UAVS);
+		FFX_ASSERT_212(shaderBlob.sampledImageCount < FFX_MAX_NUM_SRVS);
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 
 		for (uint32_t srvIndex = 0; srvIndex < outPipeline->srvCount; ++srvIndex)
@@ -1320,7 +1320,7 @@ namespace Fsr212
 		}
 
 		// create descriptor set layout
-		FFX_ASSERT(backendContext->allocatedPipelineLayoutCount < FFX_FSR2_PASS_COUNT);
+		FFX_ASSERT_212(backendContext->allocatedPipelineLayoutCount < FFX_FSR2_PASS_COUNT);
 		BackendContext_VK::PipelineLayout& pipelineLayout = backendContext->pipelineLayouts[backendContext->allocatedPipelineLayoutCount++];
 		VkDescriptorSetLayoutBinding bindings[32];
 		uint32_t bindingIndex = 0;
@@ -1441,12 +1441,12 @@ namespace Fsr212
 
 	FfxErrorCode ScheduleGpuJobVK(FfxFsr2Interface* backendInterface, const FfxGpuJobDescription* job)
 	{
-		FFX_ASSERT(NULL != backendInterface);
-		FFX_ASSERT(NULL != job);
+		FFX_ASSERT_212(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != job);
 
 		BackendContext_VK* backendContext = (BackendContext_VK*)backendInterface->scratchBuffer;
 
-		FFX_ASSERT(backendContext->gpuJobCount < FSR2_MAX_GPU_JOBS);
+		FFX_ASSERT_212(backendContext->gpuJobCount < FSR2_MAX_GPU_JOBS);
 
 		backendContext->gpuJobs[backendContext->gpuJobCount] = *job;
 
@@ -1469,8 +1469,8 @@ namespace Fsr212
 
 	void addBarrier(BackendContext_VK* backendContext, FfxResourceInternal* resource, FfxResourceStates newState)
 	{
-		FFX_ASSERT(NULL != backendContext);
-		FFX_ASSERT(NULL != resource);
+		FFX_ASSERT_212(NULL != backendContext);
+		FFX_ASSERT_212(NULL != resource);
 
 		BackendContext_VK::Resource& ffxResource = backendContext->resources[resource->internalIndex];
 
@@ -1537,8 +1537,8 @@ namespace Fsr212
 
 	void flushBarriers(BackendContext_VK* backendContext, VkCommandBuffer vkCommandBuffer)
 	{
-		FFX_ASSERT(NULL != backendContext);
-		FFX_ASSERT(NULL != vkCommandBuffer);
+		FFX_ASSERT_212(NULL != backendContext);
+		FFX_ASSERT_212(NULL != vkCommandBuffer);
 
 		if (backendContext->scheduledImageBarrierCount > 0 || backendContext->scheduledBufferBarrierCount > 0)
 		{
@@ -1789,7 +1789,7 @@ namespace Fsr212
 
 	FfxErrorCode ExecuteGpuJobsVK(FfxFsr2Interface* backendInterface, FfxCommandList commandList)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_VK* backendContext = (BackendContext_VK*)backendInterface->scratchBuffer;
 
@@ -1834,7 +1834,7 @@ namespace Fsr212
 
 	FfxErrorCode DestroyResourceVK(FfxFsr2Interface* backendInterface, FfxResourceInternal resource)
 	{
-		FFX_ASSERT(backendInterface != nullptr);
+		FFX_ASSERT_212(backendInterface != nullptr);
 
 		BackendContext_VK* backendContext = (BackendContext_VK*)backendInterface->scratchBuffer;
 
@@ -1886,7 +1886,7 @@ namespace Fsr212
 
 	FfxErrorCode DestroyPipelineVK(FfxFsr2Interface* backendInterface, FfxPipelineState* pipeline)
 	{
-		FFX_ASSERT(backendInterface != nullptr);
+		FFX_ASSERT_212(backendInterface != nullptr);
 		if (!pipeline)
 			return FFX_OK;
 

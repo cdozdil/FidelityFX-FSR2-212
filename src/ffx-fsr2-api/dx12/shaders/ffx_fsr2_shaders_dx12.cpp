@@ -358,7 +358,7 @@ key.FFX_FSR2_OPTION_APPLY_SHARPENING = FFX_CONTAINS_FLAG(options, FSR2_SHADER_PE
 		case FFX_FSR2_PASS_GENERATE_REACTIVE:
 			return fsr2GetAutogenReactivePassPermutationBlobByIndex(permutationOptions, isWave64, is16bit);
 		default:
-			FFX_ASSERT_FAIL("Should never reach here.");
+			FFX_ASSERT_FAIL_212("Should never reach here.");
 			break;
 		}
 

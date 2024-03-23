@@ -34,17 +34,17 @@ namespace Fsr212
     /// FidelityFX Super Resolution 2 major version.
     ///
     /// @ingroup FSR2
-#define FFX_FSR2_VERSION_MAJOR      (2)
+#define FFX_FSR2_VERSION_MAJOR_212      (2)
 
 /// FidelityFX Super Resolution 2 minor version.
 ///
 /// @ingroup FSR2
-#define FFX_FSR2_VERSION_MINOR      (1)
+#define FFX_FSR2_VERSION_MINOR_212      (1)
 
 /// FidelityFX Super Resolution 2 patch version.
 ///
 /// @ingroup FSR2
-#define FFX_FSR2_VERSION_PATCH      (2)
+#define FFX_FSR2_VERSION_PATCH_212      (2)
 
 /// The size of the context specified in 32bit values.
 ///
@@ -216,7 +216,7 @@ namespace Fsr212
         /// FFX_ERROR_BACKEND_API_ERROR         The operation failed because of an error returned from the backend.
         ///
         /// @ingroup FSR2
-        FFX_API FfxErrorCode ffxFsr2ContextCreate212(FfxFsr2Context* context, const FfxFsr2ContextDescription* contextDescription);
+        FfxErrorCode ffxFsr2ContextCreate212(FfxFsr2Context* context, const FfxFsr2ContextDescription* contextDescription);
 
         /// Dispatch the various passes that constitute FidelityFX Super Resolution 2.
         ///
@@ -257,7 +257,7 @@ namespace Fsr212
         /// FFX_ERROR_BACKEND_API_ERROR         The operation failed because of an error returned from the backend.
         ///
         /// @ingroup FSR2
-        FFX_API FfxErrorCode ffxFsr2ContextDispatch212(FfxFsr2Context* context, const FfxFsr2DispatchDescription* dispatchDescription);
+        FfxErrorCode ffxFsr2ContextDispatch212(FfxFsr2Context* context, const FfxFsr2DispatchDescription* dispatchDescription);
 
         /// A helper function generate a Reactive mask from an opaque only texure and one containing translucent objects.
         ///
@@ -268,7 +268,7 @@ namespace Fsr212
         /// FFX_OK                              The operation completed successfully.
         ///
         /// @ingroup FSR2
-        FFX_API FfxErrorCode ffxFsr2ContextGenerateReactiveMask212(FfxFsr2Context* context, const FfxFsr2GenerateReactiveDescription* params);
+        FfxErrorCode ffxFsr2ContextGenerateReactiveMask212(FfxFsr2Context* context, const FfxFsr2GenerateReactiveDescription* params);
 
         /// Destroy the FidelityFX Super Resolution context.
         ///
@@ -280,7 +280,7 @@ namespace Fsr212
         /// FFX_ERROR_CODE_NULL_POINTER         The operation failed because either <c><i>context</i></c> was <c><i>NULL</i></c>.
         ///
         /// @ingroup FSR2
-        FFX_API FfxErrorCode ffxFsr2ContextDestroy212(FfxFsr2Context* context);
+        FfxErrorCode ffxFsr2ContextDestroy212(FfxFsr2Context* context);
 
         /// Get the upscale ratio from the quality mode.
         ///
@@ -303,7 +303,7 @@ namespace Fsr212
         /// <c><i>qualityMode</i></c> according to the table above.
         ///
         /// @ingroup FSR2
-        FFX_API float ffxFsr2GetUpscaleRatioFromQualityMode212(FfxFsr2QualityMode qualityMode);
+        float ffxFsr2GetUpscaleRatioFromQualityMode212(FfxFsr2QualityMode qualityMode);
 
         /// A helper function to calculate the rendering resolution from a target
         /// resolution and desired quality level.
@@ -325,7 +325,7 @@ namespace Fsr212
         /// FFX_ERROR_INVALID_ENUM              An invalid quality mode was specified.
         ///
         /// @ingroup FSR2
-        FFX_API FfxErrorCode ffxFsr2GetRenderResolutionFromQualityMode212(
+        FfxErrorCode ffxFsr2GetRenderResolutionFromQualityMode212(
             uint32_t* renderWidth,
             uint32_t* renderHeight,
             uint32_t displayWidth,
@@ -357,7 +357,7 @@ namespace Fsr212
         /// The jitter phase count for the scaling factor between <c><i>renderWidth</i></c> and <c><i>displayWidth</i></c>.
         ///
         /// @ingroup FSR2
-        FFX_API int32_t ffxFsr2GetJitterPhaseCount212(int32_t renderWidth, int32_t displayWidth);
+        int32_t ffxFsr2GetJitterPhaseCount212(int32_t renderWidth, int32_t displayWidth);
 
         /// A helper function to calculate the subpixel jitter offset.
         ///
@@ -425,7 +425,7 @@ namespace Fsr212
         /// FFX_ERROR_INVALID_ARGUMENT          Argument <c><i>phaseCount</i></c> must be greater than 0.
         /// 
         /// @ingroup FSR2
-        FFX_API FfxErrorCode ffxFsr2GetJitterOffset212(float* outX, float* outY, int32_t index, int32_t phaseCount);
+        FfxErrorCode ffxFsr2GetJitterOffset212(float* outX, float* outY, int32_t index, int32_t phaseCount);
 
         /// A helper function to check if a resource is
         /// <c><i>FFX_FSR2_RESOURCE_IDENTIFIER_NULL</i></c>.
@@ -438,7 +438,7 @@ namespace Fsr212
         /// false                               The <c><i>resource</i></c> was <c><i>FFX_FSR2_RESOURCE_IDENTIFIER_NULL</i></c>.
         ///
         /// @ingroup FSR2
-        FFX_API bool ffxFsr2ResourceIsNull212(FfxResource resource);
+        bool ffxFsr2ResourceIsNull212(FfxResource resource);
 
 #if defined(__cplusplus)
     }

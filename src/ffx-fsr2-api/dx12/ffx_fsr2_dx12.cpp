@@ -95,7 +95,7 @@ namespace Fsr212
 		uint32_t                barrierCount;
 	} BackendContext_DX12;
 
-	FFX_API size_t ffxFsr2GetScratchMemorySizeDX12_212()
+	size_t ffxFsr2GetScratchMemorySizeDX12_212()
 	{
 		return FFX_ALIGN_UP(sizeof(BackendContext_DX12), sizeof(uint64_t));
 	}
@@ -203,20 +203,20 @@ namespace Fsr212
 
 	ID3D12Resource* getDX12ResourcePtr(BackendContext_DX12* backendContext, int32_t resourceIndex)
 	{
-		FFX_ASSERT(NULL != backendContext);
+		FFX_ASSERT_212(NULL != backendContext);
 		return reinterpret_cast<ID3D12Resource*>(backendContext->resources[resourceIndex].resourcePtr);
 	}
 
 	// Create a FfxFsr2Device from a ID3D12Device*
 	FfxDevice ffxGetDeviceDX12_212(ID3D12Device* dx12Device)
 	{
-		FFX_ASSERT(NULL != dx12Device);
+		FFX_ASSERT_212(NULL != dx12Device);
 		return reinterpret_cast<FfxDevice>(dx12Device);
 	}
 
 	FfxCommandList ffxGetCommandListDX12_212(ID3D12CommandList* cmdList)
 	{
-		FFX_ASSERT(NULL != cmdList);
+		FFX_ASSERT_212(NULL != cmdList);
 		return reinterpret_cast<FfxCommandList>(cmdList);
 	}
 
@@ -391,7 +391,7 @@ namespace Fsr212
 		FfxResourceInternal* outFfxResourceInternal
 	)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)(backendInterface->scratchBuffer);
 		ID3D12Device* dx12Device = reinterpret_cast<ID3D12Device*>(backendContext->device);
@@ -406,7 +406,7 @@ namespace Fsr212
 			return FFX_OK;
 		}
 
-		FFX_ASSERT(backendContext->nextDynamicResource > backendContext->nextStaticResource);
+		FFX_ASSERT_212(backendContext->nextDynamicResource > backendContext->nextStaticResource);
 		outFfxResourceInternal->internalIndex = backendContext->nextDynamicResource--;
 
 		BackendContext_DX12::Resource* backendResource = &backendContext->resources[outFfxResourceInternal->internalIndex];
@@ -486,7 +486,7 @@ namespace Fsr212
 				if (dx12Resource->GetDesc().Flags & D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS) {
 
 					const int32_t uavDescriptorsCount = (dx12Resource->GetDesc().Flags & D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS) ? dx12Resource->GetDesc().MipLevels : 1;
-					FFX_ASSERT(backendContext->nextDynamicUavDescriptor - uavDescriptorsCount + 1 > backendContext->nextStaticResource);
+					FFX_ASSERT_212(backendContext->nextDynamicUavDescriptor - uavDescriptorsCount + 1 > backendContext->nextStaticResource);
 
 					backendResource->uavDescCount = uavDescriptorsCount;
 					backendResource->uavDescIndex = backendContext->nextDynamicUavDescriptor - uavDescriptorsCount + 1;
@@ -515,7 +515,7 @@ namespace Fsr212
 	// dispose dynamic resources: This should be called at the end of the frame
 	FfxErrorCode UnregisterResourcesDX12(FfxFsr2Interface212* backendInterface)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)(backendInterface->scratchBuffer);
 
@@ -533,8 +533,8 @@ namespace Fsr212
 		ID3D12Device* dx12Device = reinterpret_cast<ID3D12Device*>(device);
 
 		FFX_UNUSED(backendInterface);
-		FFX_ASSERT(NULL != deviceCapabilities);
-		FFX_ASSERT(NULL != dx12Device);
+		FFX_ASSERT_212(NULL != deviceCapabilities);
+		FFX_ASSERT_212(NULL != dx12Device);
 
 		// check if we have shader model 6.6
 		bool haveShaderModel66 = true;
@@ -618,8 +618,8 @@ namespace Fsr212
 		HRESULT result = S_OK;
 		ID3D12Device* dx12Device = reinterpret_cast<ID3D12Device*>(device);
 
-		FFX_ASSERT(NULL != backendInterface);
-		FFX_ASSERT(NULL != dx12Device);
+		FFX_ASSERT_212(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != dx12Device);
 
 		// set up some internal resources we need (space for resource views and constant buffers)
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)backendInterface->scratchBuffer;
@@ -665,7 +665,7 @@ namespace Fsr212
 	// deinitialize the DX12 backend
 	FfxErrorCode DestroyBackendContextDX12(FfxFsr2Interface212* backendInterface)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)backendInterface->scratchBuffer;
 		backendContext->descHeapSrvCpu->Release();
@@ -700,14 +700,14 @@ namespace Fsr212
 		FfxResourceInternal* outTexture
 	)
 	{
-		FFX_ASSERT(NULL != backendInterface);
-		FFX_ASSERT(NULL != createResourceDescription);
-		FFX_ASSERT(NULL != outTexture);
+		FFX_ASSERT_212(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != createResourceDescription);
+		FFX_ASSERT_212(NULL != outTexture);
 
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)backendInterface->scratchBuffer;
 		ID3D12Device* dx12Device = backendContext->device;
 
-		FFX_ASSERT(NULL != dx12Device);
+		FFX_ASSERT_212(NULL != dx12Device);
 
 		D3D12_HEAP_PROPERTIES dx12HeapProperties = {};
 		dx12HeapProperties.Type = (createResourceDescription->heapType == FFX_HEAP_TYPE_DEFAULT) ? D3D12_HEAP_TYPE_DEFAULT : D3D12_HEAP_TYPE_UPLOAD;
@@ -721,7 +721,7 @@ namespace Fsr212
 		dx12ResourceDescription.SampleDesc.Count = 1;
 		dx12ResourceDescription.Flags = ffxGetDX12ResourceFlags(createResourceDescription->usage);
 
-		FFX_ASSERT(backendContext->nextStaticResource + 1 < backendContext->nextDynamicResource);
+		FFX_ASSERT_212(backendContext->nextStaticResource + 1 < backendContext->nextDynamicResource);
 
 		outTexture->internalIndex = backendContext->nextStaticResource++;
 		BackendContext_DX12::Resource* backendResource = &backendContext->resources[outTexture->internalIndex];
@@ -877,7 +877,7 @@ namespace Fsr212
 					if (dx12Resource->GetDesc().Flags & D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS) {
 
 						const int32_t uavDescriptorCount = (dx12Resource->GetDesc().Flags & D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS) ? dx12Resource->GetDesc().MipLevels : 1;
-						FFX_ASSERT(backendContext->nextStaticUavDescriptor + uavDescriptorCount < backendContext->nextDynamicResource);
+						FFX_ASSERT_212(backendContext->nextStaticUavDescriptor + uavDescriptorCount < backendContext->nextDynamicResource);
 
 						backendResource->uavDescCount = uavDescriptorCount;
 						backendResource->uavDescIndex = backendContext->nextStaticUavDescriptor;
@@ -930,7 +930,7 @@ namespace Fsr212
 		FfxFsr2Interface212* backendInterface,
 		FfxResourceInternal resource)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)backendInterface->scratchBuffer;
 
@@ -944,8 +944,8 @@ namespace Fsr212
 		const FfxPipelineDescription* pipelineDescription,
 		FfxPipelineState* outPipeline)
 	{
-		FFX_ASSERT(NULL != backendInterface);
-		FFX_ASSERT(NULL != pipelineDescription);
+		FFX_ASSERT_212(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != pipelineDescription);
 
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)backendInterface->scratchBuffer;
 		ID3D12Device* dx12Device = backendContext->device;
@@ -1003,7 +1003,7 @@ namespace Fsr212
 		flags |= (supportedFP16 && (pass != FFX_FSR2_PASS_RCAS)) ? FSR2_SHADER_PERMUTATION_ALLOW_FP16 : 0;
 
 		const Fsr2ShaderBlobDX12_212 shaderBlob = fsr2GetPermutationBlobByIndex_212(pass, flags);
-		FFX_ASSERT(shaderBlob.data && shaderBlob.size);
+		FFX_ASSERT_212(shaderBlob.data && shaderBlob.size);
 
 		// set up root signature
 		// easiest implementation: simply create one root signature per pipeline
@@ -1043,7 +1043,7 @@ namespace Fsr212
 				D3D12_SHADER_VISIBILITY_ALL,
 			};
 
-			FFX_ASSERT(pipelineDescription->samplerCount <= FSR2_MAX_SAMPLERS);
+			FFX_ASSERT_212(pipelineDescription->samplerCount <= FSR2_MAX_SAMPLERS);
 			const size_t samplerCount = pipelineDescription->samplerCount;
 			D3D12_STATIC_SAMPLER_DESC dx12SamplerDescriptions[FSR2_MAX_SAMPLERS];
 			for (uint32_t currentSamplerIndex = 0; currentSamplerIndex < samplerCount; ++currentSamplerIndex) {
@@ -1066,7 +1066,7 @@ namespace Fsr212
 			int32_t srvCount = FFX_FSR2_RESOURCE_IDENTIFIER_COUNT;
 			if (uavCount > 0) {
 
-				FFX_ASSERT(currentDescriptorRangeIndex < maximumDescriptorRangeSize);
+				FFX_ASSERT_212(currentDescriptorRangeIndex < maximumDescriptorRangeSize);
 				D3D12_DESCRIPTOR_RANGE* dx12DescriptorRange = &dx12Ranges[currentDescriptorRangeIndex];
 				memset(dx12DescriptorRange, 0, sizeof(D3D12_DESCRIPTOR_RANGE));
 				dx12DescriptorRange->OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
@@ -1075,7 +1075,7 @@ namespace Fsr212
 				dx12DescriptorRange->NumDescriptors = uavCount;
 				currentDescriptorRangeIndex++;
 
-				FFX_ASSERT(currentRootParameterIndex < maximumRootParameters);
+				FFX_ASSERT_212(currentRootParameterIndex < maximumRootParameters);
 				D3D12_ROOT_PARAMETER* dx12RootParameterSlot = &dx12RootParameters[currentRootParameterIndex];
 				memset(dx12RootParameterSlot, 0, sizeof(D3D12_ROOT_PARAMETER));
 				dx12RootParameterSlot->ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
@@ -1085,7 +1085,7 @@ namespace Fsr212
 
 			if (srvCount > 0) {
 
-				FFX_ASSERT(currentDescriptorRangeIndex < maximumDescriptorRangeSize);
+				FFX_ASSERT_212(currentDescriptorRangeIndex < maximumDescriptorRangeSize);
 				D3D12_DESCRIPTOR_RANGE* dx12DescriptorRange = &dx12Ranges[currentDescriptorRangeIndex];
 				memset(dx12DescriptorRange, 0, sizeof(D3D12_DESCRIPTOR_RANGE));
 				dx12DescriptorRange->OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
@@ -1094,7 +1094,7 @@ namespace Fsr212
 				dx12DescriptorRange->NumDescriptors = srvCount;
 				currentDescriptorRangeIndex++;
 
-				FFX_ASSERT(currentRootParameterIndex < maximumRootParameters);
+				FFX_ASSERT_212(currentRootParameterIndex < maximumRootParameters);
 				D3D12_ROOT_PARAMETER* dx12RootParameterSlot = &dx12RootParameters[currentRootParameterIndex];
 				memset(dx12RootParameterSlot, 0, sizeof(D3D12_ROOT_PARAMETER));
 				dx12RootParameterSlot->ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
@@ -1108,7 +1108,7 @@ namespace Fsr212
 			}
 
 
-			FFX_ASSERT(pipelineDescription->rootConstantBufferCount <= FFX_MAX_NUM_CONST_BUFFERS);
+			FFX_ASSERT_212(pipelineDescription->rootConstantBufferCount <= FFX_MAX_NUM_CONST_BUFFERS);
 			size_t rootConstantsSize = pipelineDescription->rootConstantBufferCount;
 			uint32_t rootConstants[FFX_MAX_NUM_CONST_BUFFERS];
 
@@ -1119,7 +1119,7 @@ namespace Fsr212
 
 			for (int32_t currentRootConstantIndex = 0; currentRootConstantIndex < (int32_t)pipelineDescription->rootConstantBufferCount; currentRootConstantIndex++) {
 
-				FFX_ASSERT(currentRootParameterIndex < maximumRootParameters);
+				FFX_ASSERT_212(currentRootParameterIndex < maximumRootParameters);
 				D3D12_ROOT_PARAMETER* rootParameterSlot = &dx12RootParameters[currentRootParameterIndex];
 				memset(rootParameterSlot, 0, sizeof(D3D12_ROOT_PARAMETER));
 				rootParameterSlot->ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS;
@@ -1217,12 +1217,12 @@ namespace Fsr212
 		const FfxGpuJobDescription* job
 	)
 	{
-		FFX_ASSERT(NULL != backendInterface);
-		FFX_ASSERT(NULL != job);
+		FFX_ASSERT_212(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != job);
 
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)backendInterface->scratchBuffer;
 
-		FFX_ASSERT(backendContext->gpuJobCount < FSR2_MAX_GPU_JOBS);
+		FFX_ASSERT_212(backendContext->gpuJobCount < FSR2_MAX_GPU_JOBS);
 
 		backendContext->gpuJobs[backendContext->gpuJobCount] = *job;
 
@@ -1245,13 +1245,13 @@ namespace Fsr212
 
 	void addBarrier(BackendContext_DX12* backendContext, FfxResourceInternal* resource, FfxResourceStates newState)
 	{
-		FFX_ASSERT(NULL != backendContext);
-		FFX_ASSERT(NULL != resource);
+		FFX_ASSERT_212(NULL != backendContext);
+		FFX_ASSERT_212(NULL != resource);
 
 		ID3D12Resource* dx12Resource = getDX12ResourcePtr(backendContext, resource->internalIndex);
 		D3D12_RESOURCE_BARRIER* barrier = &backendContext->barriers[backendContext->barrierCount];
 
-		FFX_ASSERT(backendContext->barrierCount < FSR2_MAX_BARRIERS);
+		FFX_ASSERT_212(backendContext->barrierCount < FSR2_MAX_BARRIERS);
 
 		FfxResourceStates* currentState = &backendContext->resources[resource->internalIndex].state;
 
@@ -1275,8 +1275,8 @@ namespace Fsr212
 
 	void flushBarriers(BackendContext_DX12* backendContext, ID3D12GraphicsCommandList* dx12CommandList)
 	{
-		FFX_ASSERT(NULL != backendContext);
-		FFX_ASSERT(NULL != dx12CommandList);
+		FFX_ASSERT_212(NULL != backendContext);
+		FFX_ASSERT_212(NULL != dx12CommandList);
 
 		if (backendContext->barrierCount > 0) {
 
@@ -1461,7 +1461,7 @@ namespace Fsr212
 		FfxFsr2Interface212* backendInterface,
 		FfxCommandList commandList)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)backendInterface->scratchBuffer;
 
@@ -1507,7 +1507,7 @@ namespace Fsr212
 		FfxFsr2Interface212* backendInterface,
 		FfxResourceInternal resource)
 	{
-		FFX_ASSERT(NULL != backendInterface);
+		FFX_ASSERT_212(NULL != backendInterface);
 
 		BackendContext_DX12* backendContext = (BackendContext_DX12*)backendInterface->scratchBuffer;
 		ID3D12Resource* dx12Resource = getDX12ResourcePtr(backendContext, resource.internalIndex);
@@ -1525,7 +1525,7 @@ namespace Fsr212
 		FfxFsr2Interface212* backendInterface,
 		FfxPipelineState* pipeline)
 	{
-		FFX_ASSERT(backendInterface != nullptr);
+		FFX_ASSERT_212(backendInterface != nullptr);
 		if (!pipeline) {
 			return FFX_OK;
 		}

@@ -233,7 +233,7 @@ namespace Fsr212
 
     static FfxErrorCode createPipelineStates(FfxFsr2Context_Private* context)
     {
-        FFX_ASSERT(context);
+        FFX_ASSERT_212(context);
 
         const size_t samplerCount = 2;
         FfxFilterType samplers[samplerCount];
@@ -282,8 +282,8 @@ namespace Fsr212
 
     static FfxErrorCode fsr2Create(FfxFsr2Context_Private* context, const FfxFsr2ContextDescription* contextDescription)
     {
-        FFX_ASSERT(context);
-        FFX_ASSERT(contextDescription);
+        FFX_ASSERT_212(context);
+        FFX_ASSERT_212(contextDescription);
 
         // Setup the data for implementation.
         memset(context, 0, sizeof(FfxFsr2Context_Private));
@@ -422,7 +422,7 @@ namespace Fsr212
 
     static void fsr2SafeReleasePipeline(FfxFsr2Context_Private* context, FfxPipelineState* pipeline)
     {
-        FFX_ASSERT(pipeline);
+        FFX_ASSERT_212(pipeline);
 
         context->contextDescription.callbacks.fpDestroyPipeline(&context->contextDescription.callbacks, pipeline);
     }
@@ -444,7 +444,7 @@ namespace Fsr212
 
     static FfxErrorCode fsr2Release(FfxFsr2Context_Private* context)
     {
-        FFX_ASSERT(context);
+        FFX_ASSERT_212(context);
 
         fsr2SafeReleasePipeline(context, &context->pipelinePrepareInputColor);
         fsr2SafeReleasePipeline(context, &context->pipelineDepthClip);
@@ -619,9 +619,9 @@ namespace Fsr212
         const FfxResourceDescription resourceDescDepthClip = context->contextDescription.callbacks.fpGetResourceDescription(&context->contextDescription.callbacks, context->srvResources[FFX_FSR2_RESOURCE_IDENTIFIER_DEPTH_CLIP]);
         const FfxResourceDescription resourceDescLockStatus = context->contextDescription.callbacks.fpGetResourceDescription(&context->contextDescription.callbacks, context->srvResources[lockStatusSrvResourceIndex]);
         const FfxResourceDescription resourceDescReactiveMask = context->contextDescription.callbacks.fpGetResourceDescription(&context->contextDescription.callbacks, context->srvResources[FFX_FSR2_RESOURCE_IDENTIFIER_INPUT_REACTIVE_MASK]);
-        FFX_ASSERT(resourceDescInputColor.type == FFX_RESOURCE_TYPE_TEXTURE2D);
-        FFX_ASSERT(resourceDescDepthClip.type == FFX_RESOURCE_TYPE_TEXTURE2D);
-        FFX_ASSERT(resourceDescLockStatus.type == FFX_RESOURCE_TYPE_TEXTURE2D);
+        FFX_ASSERT_212(resourceDescInputColor.type == FFX_RESOURCE_TYPE_TEXTURE2D);
+        FFX_ASSERT_212(resourceDescDepthClip.type == FFX_RESOURCE_TYPE_TEXTURE2D);
+        FFX_ASSERT_212(resourceDescLockStatus.type == FFX_RESOURCE_TYPE_TEXTURE2D);
 
         context->constants.jitterOffset[0] = params->jitterOffset.x;
         context->constants.jitterOffset[1] = params->jitterOffset.y;
@@ -973,7 +973,7 @@ namespace Fsr212
         return FFX_OK;
     }
 
-    FFX_API bool ffxFsr2ResourceIsNull212(FfxResource resource)
+    bool ffxFsr2ResourceIsNull212(FfxResource resource)
     {
         return resource.resource == NULL;
     }
